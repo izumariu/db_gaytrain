@@ -2,6 +2,9 @@
 
 A small dirty tool that was initially written to see if the Pride DB ICE 3 is coming to your station, but now even has support for additional modules that you can write yourself. This is more of a personal repo.
 
+### Requires:
+* faraday
+
 ### Known flaws:
 * Modules are not written in a good style.
 * File `checked` isn't cleaned properly... or maybe not even at all (I have no clue)
