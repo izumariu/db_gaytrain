@@ -1,0 +1,17 @@
+---
+LH:
+  name: Halle (Saale) Hbf
+  last: 0
+  id: '8010159'
+KD:
+  name: Düsseldorf Hbf
+  last: 0
+  id: '8000085'
+FF:
+  name: Frankfurt(M) Hbf
+  last: 0
+  id: '8000105'
+HH:
+  name: Hannover Hbf
+  last: 0
+  id: '8000152'

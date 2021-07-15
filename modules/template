@@ -1,0 +1,3 @@
+$TRAIN_PAYLOADS << lambda do |station, ice, reihung|
+
+end

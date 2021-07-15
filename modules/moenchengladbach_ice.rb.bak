@@ -1,0 +1,17 @@
+$TRAIN_PAYLOADS << lambda do |station, ice, reihung|
+
+  #puts "station = #{station.inspect}"
+  #puts "ice = #{ice.inspect}"
+  #puts "reihung = #{reihung.inspect}"
+
+  names = reihung["allFahrzeuggruppe"].map{|i|i != nil ? i["name"] : ""}
+
+  debug "#{ice[0]} -> #{names.inspect}"
+
+  if names.any?{ |i| i != nil && i.match(/Mönchengladbach/)}
+  
+    debug "#{station[1]["name"]}: " + "ICE #{ice[0]} is the ICE with the name Mönchengladbach!"
+  
+  end
+
+end
