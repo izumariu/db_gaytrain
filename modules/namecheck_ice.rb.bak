@@ -1,16 +1,18 @@
 $TRAIN_PAYLOADS << lambda do |station, ice, reihung|
 
+  name_to_check = "Nürnberg"
+
   #puts "station = #{station.inspect}"
   #puts "ice = #{ice.inspect}"
   #puts "reihung = #{reihung.inspect}"
 
   names = reihung["allFahrzeuggruppe"].map{|i|i != nil ? i["name"] : ""}
 
-  debug "#{ice[0]} -> #{names.inspect}"
+  #debug "#{ice[0]} -> #{names.inspect}"
 
-  if names.any?{ |i| i != nil && i.match(/Mönchengladbach/)}
+  if names.any?{ |i| i != nil && i == name_to_check}
   
-    debug "#{station[1]["name"]}: " + "ICE #{ice[0]} is the ICE with the name Mönchengladbach!"
+    debug "#{station[1]["name"]}: " + "ICE #{ice[0]} is the ICE with the name #{name_to_check}!"
   
   end
 

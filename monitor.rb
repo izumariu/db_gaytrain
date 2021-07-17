@@ -135,7 +135,13 @@ loop do
       deps_ice = deps.select{ |dep| dep["train"]["type"].match /^ICE?$/ }
 
       ice_numbers = deps_ice.map do |ice| 
-        [ice["train"]["number"].to_s, ice["initialDeparture"], (ice["arrival"]||ice["departure"])["scheduledTime"], (ice["departure"]||ice["arrival"])["scheduledTime"]]
+        [ice["train"]["number"].to_s, 
+         ice["initialDeparture"], 
+         (ice["arrival"]||ice["departure"])["scheduledTime"], 
+         (ice["departure"]||ice["arrival"])["scheduledTime"], 
+         ice["cancelled"],
+         ice["messages"]["delay"].map{ |i| i["text"] }
+        ]
       end
 
       ice_numbers.each do |ice|
@@ -152,7 +158,7 @@ loop do
 
         end
 
-        reihung = Faraday.get "https://marudor.de/api/reihung/v2/wagen/#{ice[0]}/#{ice[1]}"
+        reihung = Faraday.get "https://marudor.de/api/reihung/v2/wagen/#{ice[0]}/#{ice[2]}"
         if reihung.status == 200
           
           reihung = JSON.parse(reihung.body)#["allFahrzeuggruppe"].map{|i|i != nil ? i["name"] : ""}
@@ -165,7 +171,7 @@ loop do
         
         else
 
-          debug "Reihung for #{ice[0]} not available"
+          debug "Reihung for #{ice[0]} not available" + (ice[4] ? " (cancelled: #{ice[5].join(", ")})" : "")
 
         end
 
