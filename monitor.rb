@@ -110,7 +110,7 @@ loop do
   
   time = Time.new
   time -= time.gmtoff
-  checked = File.exist?("checked") ? open("checked", &:read).split(?\n).map(&:split).uniq : ""
+  checked = File.exist?("checked") ? open("checked", &:read).split(?\n).map(&:split).uniq : []
 
   $stations.each do |station|
 
@@ -146,10 +146,12 @@ loop do
 
       ice_numbers.each do |ice|
 
+        ice_timestamp = Time.now.to_i
+
         checked_set = checked.select { |i| i.last == ice[0].to_s }
         if checked_set.length == 1
 
-          if checked_set.first.first == time.day.to_s
+          if checked_set.first.first.to_i > (ice_timestamp - 60*60*24)
             #debug "Skipping #{ice[0]}"
             next
           else
@@ -175,7 +177,7 @@ loop do
 
         end
 
-        checked << [time.day, ice[0]].map(&:to_s)
+        checked << [ice_timestamp, ice[0]].map(&:to_s)
       
       end
 
